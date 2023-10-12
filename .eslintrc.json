@@ -1,0 +1,22 @@
+{
+
+  "plugins": ["react", "prettier", "jest-dom"],
+  
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "plugin:jest-dom/recommended"
+  ],
+
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": "warn"
+  }
+}
