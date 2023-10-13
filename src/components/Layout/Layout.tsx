@@ -11,8 +11,10 @@ import { AppBar, Drawer, DrawerHeader } from './styledComponents'
 import { menuItems } from './types'
 import DrawerItem from './DrawerItem'
 
-// todo: add submenu functionality
+// todo: improve opening/closing mechanism
 // todo: add styles
+// todo: add logo
+
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const theme = useTheme()
   const [open, setOpen] = React.useState(true)
