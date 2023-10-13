@@ -9,14 +9,16 @@ import List from '@mui/material/List'
 import Collapse from '@mui/material/Collapse'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import ExpandLess from '@mui/icons-material/ExpandLess'
+import { useTheme } from '@mui/material/styles'
 
 type DrawerItemProps = {
   item: MenuItem
   open: boolean
 }
 const DrawerItem: FC<DrawerItemProps> = ({ item, open: isDrawerOpen }) => {
-  const { iconName, label, subItems } = item
+  const theme = useTheme()
   const [openSubmenu, setOpenSubmenu] = useState(false)
+  const { iconName, label, subItems } = item
   const hasSubItems = !!subItems?.length
 
   const Icon = iconName && MUIcon[iconName]
@@ -59,23 +61,49 @@ const DrawerItem: FC<DrawerItemProps> = ({ item, open: isDrawerOpen }) => {
           sx={{
             minHeight: 48,
             justifyContent: isDrawerOpen ? 'initial' : 'center',
-            px: 2.5
+            px: 2.5,
+            ':hover': {
+              backgroundColor: 'transparent',
+              '& .MuiTypography-root': {
+                color: theme.customColors.lightBlue
+              },
+              '& svg': {
+                fill: theme.customColors.lightBlue
+              }
+            }
           }}
         >
           {iconName && (
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: isDrawerOpen ? 3 : 'auto',
+                mr: isDrawerOpen ? 2 : 'auto',
                 justifyContent: 'center'
               }}
             >
-              {Icon && <Icon />}
+              {Icon && (
+                <Icon
+                  sx={{
+                    fontSize: 20,
+                    color: isDrawerOpen
+                      ? theme.palette.secondary.main
+                      : theme.palette.common.white
+                  }}
+                />
+              )}
             </ListItemIcon>
           )}
           <ListItemText
             primary={label.toUpperCase()}
-            sx={{ opacity: isDrawerOpen ? 1 : 0 }}
+            sx={{
+              opacity: isDrawerOpen ? 1 : 0,
+              fontSize: { lg: 14 },
+              color: 'white',
+              fontWeight: 300, // todo: change when selected
+              span: {
+                letterSpacing: '1.5px'
+              }
+            }}
           />
 
           {collapseIcon}

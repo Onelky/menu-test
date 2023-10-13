@@ -1,12 +1,12 @@
 import { CSSObject, styled, Theme } from '@mui/material/styles'
-import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar/AppBar'
-import MuiAppBar from '@mui/material/AppBar'
 import MuiDrawer from '@mui/material/Drawer'
 
 const drawerWidth = 240
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: drawerWidth,
+  minWidth: drawerWidth,
+  backgroundColor: theme.palette.primary.main,
+  padding: '40px 20px',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen
@@ -15,6 +15,8 @@ const openedMixin = (theme: Theme): CSSObject => ({
 })
 
 const closedMixin = (theme: Theme): CSSObject => ({
+  backgroundColor: theme.palette.primary.main,
+  paddingTop: 20,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen
@@ -29,34 +31,10 @@ const closedMixin = (theme: Theme): CSSObject => ({
 export const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
+  justifyContent: 'center',
+  padding: theme.spacing(1, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar
-}))
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean
-}
-
-export const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open'
-})<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  backgroundColor: 'transparent',
-  boxShadow: 'none',
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  })
 }))
 
 export const Drawer = styled(MuiDrawer, {
