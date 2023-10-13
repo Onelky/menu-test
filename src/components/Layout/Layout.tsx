@@ -2,11 +2,11 @@ import React, { type FC, type PropsWithChildren, useState } from 'react'
 import { darken, styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
-import IconButton, { IconButtonProps } from '@mui/material/IconButton'
+import IconButton, { type IconButtonProps } from '@mui/material/IconButton'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { defaultSelectedItem, menuItems } from '@app/contants'
 import { Drawer, DrawerHeader } from './styledComponents'
-import { defaultSelectedItem, menuItems } from './types'
 import DrawerItem from './DrawerItem'
 
 // todo: add logo

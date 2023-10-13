@@ -1,4 +1,4 @@
-import { MenuItem } from '../types/menuItem'
+import { MenuItem } from '@app/types'
 
 export const defaultSelectedItem: MenuItem = {
   label: 'Providers',

@@ -8,8 +8,8 @@ import Collapse from '@mui/material/Collapse'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import { useTheme } from '@mui/material/styles'
+import type { MenuItem } from '@app/types'
 import { DrawerSubItemList } from './styledComponents'
-import type { MenuItem } from './types'
 
 type DrawerItemProps = {
   item: MenuItem
