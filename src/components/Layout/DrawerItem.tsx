@@ -14,26 +14,33 @@ import type { MenuItem } from './types'
 type DrawerItemProps = {
   item: MenuItem
   open: boolean
+  isSelected: boolean
   setOpen: (value: boolean) => void
+  setSelectedItem: (label: string) => void
 }
 const DrawerItem: FC<DrawerItemProps> = (props) => {
   const theme = useTheme()
   const [openSubmenu, setOpenSubmenu] = useState(false)
-  const { item, open: isDrawerOpen, setOpen: setOpenDrawer } = props
+  const {
+    item,
+    open: isDrawerOpen,
+    setOpen: setOpenDrawer,
+    isSelected,
+    setSelectedItem
+  } = props
+
   const { iconName, label, subItems } = item
   const hasSubItems = !!subItems?.length
-
   const Icon = iconName && MUIcon[iconName]
 
   useEffect(() => {
-    if (!isDrawerOpen && openSubmenu) setOpenSubmenu(false)
-  }, [isDrawerOpen])
+    if ((!isDrawerOpen || !isSelected) && openSubmenu) setOpenSubmenu(false)
+  }, [isDrawerOpen, isSelected])
 
   const handleItemClick = () => {
-    if (hasSubItems && !openSubmenu) {
-      setOpenDrawer(true)
-    }
+    setSelectedItem(label)
     setOpenSubmenu(!openSubmenu)
+    if (hasSubItems && !openSubmenu) setOpenDrawer(true)
   }
   const CollapseIcon = hasSubItems && (openSubmenu ? ExpandLess : ExpandMore)
 
@@ -53,7 +60,7 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
     <ListItemIcon
       sx={{
         minWidth: 0,
-        mr: isDrawerOpen ? 2 : 'auto',
+        mr: isDrawerOpen ? 2 : 0,
         justifyContent: 'center'
       }}
     >
@@ -61,7 +68,9 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
         <Icon
           sx={{
             fontSize: 20,
-            color: isDrawerOpen
+            color: isSelected
+              ? theme.customColors.lightBlue
+              : isDrawerOpen
               ? theme.palette.secondary.main
               : theme.palette.common.white
           }}
@@ -74,7 +83,7 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
     <Collapse in={openSubmenu} timeout="auto" unmountOnExit>
       <DrawerSubItemList disablePadding>
         {subItems.map(({ label }) => (
-          <ListItemButton key={label} sx={{ pl: 4, ...itemHoverStyle }}>
+          <ListItemButton key={label} sx={{ ...itemHoverStyle }}>
             <ListItemText
               primary={label}
               sx={{ fontWeight: 300, color: theme.customColors.lightGray }}
@@ -117,7 +126,7 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
                   span: {
                     letterSpacing: '1.5px',
                     fontSize: { lg: 14 },
-                    fontWeight: 300 // todo: change when selected
+                    fontWeight: isSelected ? 600 : 300
                   }
                 }}
               />
