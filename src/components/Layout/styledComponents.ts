@@ -1,12 +1,13 @@
 import { CSSObject, styled, Theme } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
 
-const drawerWidth = 240
+const drawerWidth = 250
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  minWidth: drawerWidth,
+  width: drawerWidth,
   backgroundColor: theme.palette.primary.main,
-  padding: '40px 20px',
+  padding: '40px 30px',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen
@@ -52,4 +53,16 @@ export const Drawer = styled(MuiDrawer, {
     ...closedMixin(theme),
     '& .MuiDrawer-paper': closedMixin(theme)
   })
+}))
+
+export const DrawerSubItemList = styled(List)(({ theme }) => ({
+  maxHeight: 170,
+  pl: '20px',
+  overflowY: 'auto',
+  '::-webkit-scrollbar': {
+    width: 5
+  },
+  '::-webkit-scrollbar-thumb': {
+    background: theme.customColors.scrollBar
+  }
 }))

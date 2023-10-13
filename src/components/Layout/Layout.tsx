@@ -1,5 +1,5 @@
 import React, { type FC, type PropsWithChildren } from 'react'
-import { useTheme } from '@mui/material/styles'
+import { useTheme, darken } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton'
@@ -9,7 +9,6 @@ import { Drawer, DrawerHeader } from './styledComponents'
 import { menuItems } from './types'
 import DrawerItem from './DrawerItem'
 
-// todo: add styles
 // todo: add logo
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
@@ -27,7 +26,12 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 
         <List>
           {menuItems.map((item) => (
-            <DrawerItem key={item.label} item={item} open={open} />
+            <DrawerItem
+              key={item.label}
+              item={item}
+              open={open}
+              setOpen={setOpen}
+            />
           ))}
         </List>
       </Drawer>
@@ -36,12 +40,18 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
         aria-label={(open ? 'open' : 'close') + ' drawer'}
         edge="end"
         sx={{
-          color: open
-            ? theme.palette.secondary.main
-            : theme.palette.common.white,
+          height: 25,
+          width: 25,
+          zIndex: 3000,
+          color: theme.palette.common.white,
+          backgroundColor: theme.palette.secondary.main,
           position: 'absolute',
-          left: open ? 230 : 60,
-          top: 24
+          left: open ? 240 : 60,
+          top: 24,
+          '&:hover': {
+            color: theme.palette.common.white,
+            backgroundColor: darken(theme.palette.secondary.main, 0.1)
+          }
         }}
       >
         {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
