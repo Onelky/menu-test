@@ -1,3 +1,4 @@
+import { Practices } from '../components/Practices'
 import { useRoutes } from 'react-router-dom'
 import { Layout } from '../components/Layout'
 
@@ -17,36 +18,36 @@ export const AppRoutes = () => {
         },
         {
           path: 'my-tasks',
-          element: <></>
+          element: <h2>My Tasks</h2>
         },
         {
           path: 'all-tasks',
-          element: <></>
+          element: <h2>All tasks</h2>
         },
         {
           path: 'roster',
-          element: <></>
+          element: <h2>Roster</h2>
         },
         {
           path: 'privileges',
-          element: <></>
+          element: <h2>Privileges</h2>
         },
         {
           path: 'credentialing',
-          element: <></>
+          element: <h2>Credentialing</h2>
         },
         {
           path: 'stateLaws',
-          element: <></>
+          element: <h2>State Laws</h2>
         }
       ]
     },
-    { path: 'practices', element: <></> },
-    { path: 'jobs', element: <></> },
-    { path: 'schedules', element: <></> },
-    { path: 'time-and-invoices', element: <></> },
-    { path: 'time-and-pay', element: <></> },
-    { path: 'messages', element: <></> }
+    { path: 'practices', element: <Practices /> },
+    { path: 'jobs', element: <h2>Jobs</h2> },
+    { path: 'schedules', element: <h2>Schedules</h2> },
+    { path: 'time-and-invoices', element: <h2>Invoices</h2> },
+    { path: 'time-and-pay', element: <h2>Pay</h2> },
+    { path: 'messages', element: <h2>Messages</h2> }
   ])
 
   return <Layout>{element}</Layout>

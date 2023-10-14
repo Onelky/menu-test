@@ -63,6 +63,7 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
   const CollapseIcon = hasSubItems && (openSubmenu ? ExpandLess : ExpandMore)
 
   const itemHoverStyle = {
+    a: { textDecoration: 'none' },
     ':hover': {
       backgroundColor: 'transparent',
       '& .MuiTypography-root': {
@@ -100,12 +101,14 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
   const subItemsList = hasSubItems && (
     <Collapse in={openSubmenu} timeout="auto" unmountOnExit>
       <DrawerSubItemList disablePadding>
-        {subItems.map(({ label }) => (
+        {subItems.map(({ label, route: subItemRoute }) => (
           <ListItemButton key={label} sx={{ ...itemHoverStyle }}>
-            <ListItemText
-              primary={label}
-              sx={{ fontWeight: 300, color: theme.customColors.lightGray }}
-            />
+            <NavLink to={`/${route}/${subItemRoute}`}>
+              <ListItemText
+                primary={label}
+                sx={{ fontWeight: 300, color: theme.customColors.lightGray }}
+              />
+            </NavLink>
           </ListItemButton>
         ))}
       </DrawerSubItemList>
