@@ -5,7 +5,7 @@ import List from '@mui/material/List'
 import IconButton, { type IconButtonProps } from '@mui/material/IconButton'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { defaultSelectedItem, menuItems } from '@app/contants'
+import { menuItems } from '../../contants'
 import { Drawer, DrawerHeader } from './styledComponents'
 import DrawerItem from './DrawerItem'
 
@@ -32,11 +32,9 @@ const ToggleSideBarButton = styled(IconButton, {
   }
 }))
 
-const Layout: FC<PropsWithChildren> = ({ children }) => {
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(true)
-  const [selectedItem, setSelectedItem] = useState<string>(
-    defaultSelectedItem.label
-  )
+  const [selectedItem, setSelectedItem] = useState<string>('Dashboard')
 
   const toggleOpen = () => setOpen(!open)
 
@@ -72,5 +70,3 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
     </Box>
   )
 }
-
-export default Layout

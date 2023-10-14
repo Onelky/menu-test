@@ -1,4 +1,5 @@
-import React, { type FC, useEffect, useState } from 'react'
+import React, { type FC, PropsWithChildren, useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import * as MUIcon from '@mui/icons-material'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -11,6 +12,22 @@ import { useTheme } from '@mui/material/styles'
 import type { MenuItem } from '@app/types'
 import { DrawerSubItemList } from './styledComponents'
 
+const Wrapper: FC<PropsWithChildren<{ route?: string }>> = ({
+  children,
+  route
+}) => {
+  if (route)
+    return (
+      <NavLink
+        to={route}
+        className={({ isActive }) => (isActive ? 'active' : '')}
+      >
+        {children}
+      </NavLink>
+    )
+  return <>{children}</>
+}
+
 type DrawerItemProps = {
   item: MenuItem
   open: boolean
@@ -19,8 +36,6 @@ type DrawerItemProps = {
   setSelectedItem: (label: string) => void
 }
 const DrawerItem: FC<DrawerItemProps> = (props) => {
-  const theme = useTheme()
-  const [openSubmenu, setOpenSubmenu] = useState(false)
   const {
     item,
     open: isDrawerOpen,
@@ -29,7 +44,10 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
     setSelectedItem
   } = props
 
-  const { iconName, label, subItems } = item
+  const theme = useTheme()
+  const [openSubmenu, setOpenSubmenu] = useState(isSelected)
+
+  const { iconName, label, subItems, route } = item
   const hasSubItems = !!subItems?.length
   const Icon = iconName && MUIcon[iconName]
 
@@ -94,6 +112,26 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
     </Collapse>
   )
 
+  const text = isDrawerOpen && (
+    <>
+      <ListItemText
+        primary={label.toUpperCase()}
+        sx={{
+          opacity: isDrawerOpen ? 1 : 0,
+          fontSize: { lg: 14 },
+          color: 'white',
+          span: {
+            letterSpacing: '1.5px',
+            fontSize: { lg: 14 },
+            fontWeight: 300
+          }
+        }}
+      />
+
+      {CollapseIcon && <CollapseIcon sx={{ color: 'white' }} />}
+    </>
+  )
+
   return (
     <>
       <ListItem
@@ -101,40 +139,31 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
         sx={{
           display: 'block',
           fontWeight: openSubmenu ? 'bold' : undefined,
-          color: openSubmenu ? 'text.primary' : 'inherit'
+          color: openSubmenu ? 'text.primary' : 'inherit',
+          a: {
+            textDecoration: 'none'
+          },
+          '& .active': {
+            span: {
+              fontWeight: 600
+            }
+          }
         }}
       >
-        <ListItemButton
-          onClick={handleItemClick}
-          sx={{
-            minHeight: 48,
-            justifyContent: isDrawerOpen ? 'initial' : 'center',
-            px: isDrawerOpen ? 0 : 'auto',
-            ...itemHoverStyle
-          }}
-        >
-          {icon}
-
-          {isDrawerOpen && (
-            <>
-              <ListItemText
-                primary={label.toUpperCase()}
-                sx={{
-                  opacity: isDrawerOpen ? 1 : 0,
-                  fontSize: { lg: 14 },
-                  color: 'white',
-                  span: {
-                    letterSpacing: '1.5px',
-                    fontSize: { lg: 14 },
-                    fontWeight: isSelected ? 600 : 300
-                  }
-                }}
-              />
-
-              {CollapseIcon && <CollapseIcon sx={{ color: 'white' }} />}
-            </>
-          )}
-        </ListItemButton>
+        <Wrapper route={hasSubItems ? '' : route}>
+          <ListItemButton
+            onClick={handleItemClick}
+            sx={{
+              minHeight: 48,
+              justifyContent: isDrawerOpen ? 'initial' : 'center',
+              px: isDrawerOpen ? 0 : 'auto',
+              ...itemHoverStyle
+            }}
+          >
+            {icon}
+            {text}
+          </ListItemButton>
+        </Wrapper>
       </ListItem>
 
       {subItemsList}
