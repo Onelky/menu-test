@@ -1,27 +1,34 @@
 import { MenuItem } from '@app/types'
 
-export const defaultSelectedItem: MenuItem = {
-  label: 'Providers',
-  iconName: 'BadgeOutlined',
-  subItems: [
-    { label: 'Dashboard' },
-    { label: 'Providers' },
-    { label: 'My Tasks' },
-    { label: 'All Tasks' },
-    { label: 'Roster' },
-    { label: 'Privileges' },
-    { label: 'Credentialing' },
-    { label: 'State Laws' }
-  ]
-}
-
 export const menuItems: MenuItem[] = [
-  { label: 'Dashboard', iconName: 'BarChartOutlined' },
-  defaultSelectedItem,
-  { label: 'Practices', iconName: 'LocationOnOutlined' },
-  { label: 'Jobs', iconName: 'WorkOutlineOutlined' },
-  { label: 'Schedules', iconName: 'CalendarTodayOutlined' },
-  { label: 'Time & Invoices', iconName: 'MoreTimeOutlined' },
-  { label: 'Time & Pay', iconName: 'PaidOutlined' },
-  { label: 'Messages', iconName: 'ChatBubbleOutlineOutlined' }
+  { label: 'Dashboard', iconName: 'BarChartOutlined', route: '/' },
+  {
+    label: 'Providers',
+    route: 'providers',
+    iconName: 'BadgeOutlined',
+    subItems: [
+      { label: 'Dashboard', route: 'dashboard' },
+      { label: 'Providers', route: 'providers' },
+      { label: 'My Tasks', route: 'my-tasks' },
+      { label: 'All Tasks', route: 'all-tasks' },
+      { label: 'Roster', route: 'roster' },
+      { label: 'Privileges', route: 'privileges' },
+      { label: 'Credentialing', route: 'credentialing' },
+      { label: 'State Laws', route: 'stateLaws' }
+    ]
+  },
+  { label: 'Practices', iconName: 'LocationOnOutlined', route: 'practices' },
+  { label: 'Jobs', iconName: 'WorkOutlineOutlined', route: 'jobs' },
+  { label: 'Schedules', iconName: 'CalendarTodayOutlined', route: 'schedules' },
+  {
+    label: 'Time & Invoices',
+    iconName: 'MoreTimeOutlined',
+    route: 'time-and-invoices'
+  },
+  { label: 'Time & Pay', iconName: 'PaidOutlined', route: 'time-and-pay' },
+  {
+    label: 'Messages',
+    iconName: 'ChatBubbleOutlineOutlined',
+    route: 'messages'
+  }
 ]

@@ -1,8 +1,8 @@
 import React from 'react'
-import Layout from './components/Layout/Layout'
+import { AppRoutes } from './routes'
 
 function App() {
-  return <Layout></Layout>
+  return <AppRoutes />
 }
 
 export default App
