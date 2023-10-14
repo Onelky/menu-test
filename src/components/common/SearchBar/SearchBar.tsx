@@ -2,7 +2,6 @@ import React, { type FC } from 'react'
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
 import TextField from '@mui/material/TextField'
-import { useTheme } from '@mui/material/styles'
 import SearchOutlined from '@mui/icons-material/SearchOutlined'
 
 type SelectProps = {
@@ -11,7 +10,6 @@ type SelectProps = {
   setValue: (newValue: string) => void
 }
 export const SearchBar: FC<SelectProps> = (props) => {
-  const theme = useTheme()
   const { placeholder, value = '', setValue } = props
 
   return (

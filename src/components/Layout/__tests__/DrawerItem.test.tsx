@@ -2,11 +2,18 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import DrawerItem from '../DrawerItem'
 
+const commonProps = {
+  open: false,
+  isSelected: false,
+  setSelectedItem: jest.fn(),
+  setOpen: jest.fn()
+}
+
 test('item icon and text are rendered successfully', () => {
   render(
     <DrawerItem
       item={{ label: 'Providers', iconName: 'BadgeOutlined' }}
-      open={false}
+      {...commonProps}
     />
   )
   expect(screen.getByRole('button', { name: /Providers/i })).toBeInTheDocument()
@@ -24,7 +31,7 @@ test('sub-items are displayed when clicking an item name and hidden when clickin
         label: 'Providers',
         subItems: [{ label: 'Dashboard' }, { label: 'My Tasks' }]
       }}
-      open={false}
+      {...commonProps}
     />
   )
   const providersItem = screen.getByRole('button', { name: /Providers/i })
@@ -46,7 +53,7 @@ test('sub-items are displayed when clicking an item name and hidden when clickin
 })
 
 test('collapse/expand icon is only displayed when item has sub items', async () => {
-  render(<DrawerItem item={{ label: 'Providers' }} open={false} />)
+  render(<DrawerItem item={{ label: 'Providers' }} {...commonProps} />)
 
   const icon = screen.queryByTestId('ExpandMoreIcon')
   expect(icon).not.toBeInTheDocument()
