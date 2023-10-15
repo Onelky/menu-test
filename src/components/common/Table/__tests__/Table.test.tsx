@@ -4,12 +4,22 @@ import { Table } from '../Table'
 test('displays headers and rows correctly', () => {
   render(
     <Table
-      headers={[{ id: 1, label: 'Header 1' }]}
-      rows={[{ id: 1, place: 'Place', jobs: 40 }]}
+      headers={[
+        { id: 1, label: 'Place', columnPath: 'place' },
+        { id: 2, label: 'Jobs', columnPath: 'jobs', numeric: true }
+      ]}
+      rows={[{ id: 1, place: 'Better Medicine Testing', jobs: 40 }]}
     />
   )
-  expect(screen.getByRole('row', { name: 'Header 1' })).toBeInTheDocument()
+  // check headers
+  expect(
+    screen.getByRole('columnheader', { name: 'Place' })
+  ).toBeInTheDocument()
+  expect(screen.getByRole('columnheader', { name: 'Jobs' })).toBeInTheDocument()
 
-  expect(screen.getByRole('cell', { name: /Place/i })).toBeInTheDocument()
+  // check row content is right
+  expect(
+    screen.getByRole('cell', { name: /Better Medicine Testing/i })
+  ).toBeInTheDocument()
   expect(screen.getByRole('cell', { name: '(40)' })).toBeInTheDocument()
 })

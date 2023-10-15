@@ -6,6 +6,7 @@ export interface Data {
 export interface HeadCell {
   id: number
   label: string
+  columnPath: string
   disablePadding?: boolean
   numeric?: boolean
 }

@@ -6,7 +6,12 @@ import MuiTable from '@mui/material/Table'
 import MuiTableHead from '@mui/material/TableHead'
 import TableCell from '@mui/material/TableCell'
 import Checkbox from '@mui/material/Checkbox'
-import type { Data, HeadCell } from './types'
+import type { HeadCell } from './types'
+
+const formatCellValue = (cellValue: string, isNumeric: boolean): string => {
+  if (isNumeric) return '(' + cellValue + ')'
+  return cellValue
+}
 
 interface TableHeadProps {
   numSelected: number
@@ -29,7 +34,12 @@ function TableHead(props: TableHeadProps) {
   return (
     <MuiTableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell
+          component={'th'}
+          scope={'col'}
+          padding="checkbox"
+          aria-label={'Select All checkbox'}
+        >
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -40,6 +50,8 @@ function TableHead(props: TableHeadProps) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
+            scope={'col'}
+            component={'th'}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
           >
@@ -52,7 +64,7 @@ function TableHead(props: TableHeadProps) {
 }
 
 type TableProps = {
-  rows: Data[]
+  rows: any[]
   headers: HeadCell[]
 }
 export const Table: FC<TableProps> = ({ rows, headers }) => {
@@ -118,7 +130,10 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
                 selected={isItemSelected}
                 sx={{ cursor: 'pointer' }}
               >
-                <TableCell padding="checkbox">
+                <TableCell
+                  padding="checkbox"
+                  aria-label={'Select row checkbox'}
+                >
                   <Checkbox
                     color="primary"
                     checked={isItemSelected}
@@ -127,15 +142,15 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
                     }}
                   />
                 </TableCell>
-                <TableCell
-                  component="th"
-                  id={labelId}
-                  scope="row"
-                  padding="none"
-                >
-                  {row.place}
-                </TableCell>
-                <TableCell align="right">({row.jobs})</TableCell>
+                {headers.map((header) => (
+                  <TableCell
+                    key={header.id + row.id}
+                    scope="row"
+                    align={header.numeric ? 'right' : 'left'}
+                  >
+                    {formatCellValue(row[header.columnPath], !!header.numeric)}
+                  </TableCell>
+                ))}
               </TableRow>
             )
           })}
