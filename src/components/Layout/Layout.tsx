@@ -14,9 +14,11 @@ import { menuItems } from '../../contants'
 import { Drawer, DrawerHeader } from './styledComponents'
 import DrawerItem from './DrawerItem'
 import { useMediaQuery } from '@mui/material'
+import logo from '../../assets/logo.svg'
+import logoMobile from '../../assets/logo-mobile.svg'
 
-// todo: add logo
-
+// todo: improve drawer in mobile devices, it should be opended on top of content
+// todo add logic for taking url and select itm in menu from there
 const ToggleSideBarButton = styled(IconButton, {
   shouldForwardProp: (propName) => propName !== 'open'
 })<IconButtonProps & { open: boolean }>(({ theme, open }) => ({
@@ -54,7 +56,14 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader>Logo</DrawerHeader>
+        <DrawerHeader>
+          <img
+            width={open ? 160 : 30}
+            height={open ? 160 : 30}
+            src={open ? logo : logoMobile}
+            alt={'Kimedics logo'}
+          />
+        </DrawerHeader>
 
         <List>
           {menuItems.map((item) => (
@@ -74,7 +83,6 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         aria-label={(open ? 'open' : 'close') + ' drawer'}
         edge="end"
         open={open}
-        sx={{ display: { xs: 'none', lg: 'flex' } }}
       >
         {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </ToggleSideBarButton>

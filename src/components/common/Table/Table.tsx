@@ -122,7 +122,7 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
     <TableContainer
       sx={{
         maxHeight: {
-          xs: 'calc(100vh - 50px)',
+          xs: 'calc(80vh - 90px - 50px)',
           md: 'calc(90vh - 90px - 50px)'
         },
         overflowY: 'auto',
