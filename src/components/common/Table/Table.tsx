@@ -101,6 +101,8 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
     setSelected([])
   }
 
+  if (!rows.length) return <span>No data found</span>
+
   return (
     <TableContainer>
       <MuiTable
