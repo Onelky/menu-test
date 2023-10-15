@@ -10,10 +10,12 @@ import List from '@mui/material/List'
 import IconButton, { type IconButtonProps } from '@mui/material/IconButton'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { menuItems } from '../../contants'
+import { useMediaQuery } from '@mui/material'
+import Stack from '@mui/material/Stack'
+import { MenuItem } from '@app/types'
+import { menuItems, otherOptions } from '../../contants'
 import { Drawer, DrawerHeader } from './styledComponents'
 import DrawerItem from './DrawerItem'
-import { useMediaQuery } from '@mui/material'
 import logo from '../../assets/logo.svg'
 import logoMobile from '../../assets/logo-mobile.svg'
 
@@ -53,6 +55,18 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
 
   const toggleOpen = () => setOpen(!open)
 
+  const getDrawerItem = (item: MenuItem) => {
+    return (
+      <DrawerItem
+        key={item.label}
+        item={item}
+        open={open}
+        setOpen={setOpen}
+        isSelected={selectedItem === item.label}
+        setSelectedItem={setSelectedItem}
+      />
+    )
+  }
   return (
     <Box sx={{ display: 'flex', position: 'relative' }}>
       <Drawer variant="permanent" open={open}>
@@ -65,18 +79,10 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
           />
         </DrawerHeader>
 
-        <List>
-          {menuItems.map((item) => (
-            <DrawerItem
-              key={item.label}
-              item={item}
-              open={open}
-              setOpen={setOpen}
-              isSelected={selectedItem === item.label}
-              setSelectedItem={setSelectedItem}
-            />
-          ))}
-        </List>
+        <Stack height={'100%'} justifyContent={'space-between'}>
+          <List>{menuItems.map((item) => getDrawerItem(item))}</List>
+          <List>{otherOptions.map((item) => getDrawerItem(item))}</List>
+        </Stack>
       </Drawer>
       <ToggleSideBarButton
         onClick={toggleOpen}

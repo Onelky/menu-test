@@ -47,7 +47,9 @@ export const AppRoutes = () => {
     { path: 'schedules', element: <h2>Schedules</h2> },
     { path: 'time-and-invoices', element: <h2>Invoices</h2> },
     { path: 'time-and-pay', element: <h2>Pay</h2> },
-    { path: 'messages', element: <h2>Messages</h2> }
+    { path: 'messages', element: <h2>Messages</h2> },
+    { path: 'settings', element: <h2>Settings</h2> },
+    { path: 'help', element: <h2>Help</h2> }
   ])
 
   return <Layout>{element}</Layout>

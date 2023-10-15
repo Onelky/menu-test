@@ -7,7 +7,7 @@ const drawerWidth = 250
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
   backgroundColor: theme.palette.primary.main,
-  padding: '40px 30px',
+  padding: '40px 30px 30px 30px',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen
@@ -17,7 +17,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
 
 const closedMixin = (theme: Theme): CSSObject => ({
   backgroundColor: theme.palette.primary.main,
-  paddingTop: 20,
+  padding: '20px 0',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen

@@ -32,3 +32,7 @@ export const menuItems: MenuItem[] = [
     route: 'messages'
   }
 ]
+export const otherOptions: MenuItem[] = [
+  { label: 'Help', iconName: 'QuestionMarkOutlined', route: '/help' },
+  { label: 'Settings', iconName: 'SettingsOutlined', route: 'settings' }
+]
