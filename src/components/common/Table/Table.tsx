@@ -122,22 +122,23 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
     <TableContainer
       sx={{
         maxHeight: {
-          lg: 'calc(90vh - 90px - 50px)',
-          overflowY: 'auto',
-          '::-webkit-scrollbar': {
-            width: 8,
-            background: theme.customColors.grayBlue,
-            borderRadius: '8px'
-          },
-          '::-webkit-scrollbar-thumb': {
-            background: theme.customColors.scrollBar,
-            borderRadius: '8px'
-          }
+          xs: 'calc(100vh - 50px)',
+          md: 'calc(90vh - 90px - 50px)'
+        },
+        overflowY: 'auto',
+        '::-webkit-scrollbar': {
+          width: 8,
+          background: theme.customColors.grayBlue,
+          borderRadius: '8px'
+        },
+        '::-webkit-scrollbar-thumb': {
+          background: theme.customColors.scrollBar,
+          borderRadius: '8px'
         }
       }}
     >
       <MuiTable
-        sx={{ minWidth: 750 }}
+        sx={{ minWidth: { xs: 200, md: 750 } }}
         aria-labelledby="tableTitle"
         size={'small'}
       >

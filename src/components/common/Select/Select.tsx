@@ -7,16 +7,19 @@ import PlaceOutlined from '@mui/icons-material/PlaceOutlined'
 import KeyboardArrowDownOutlined from '@mui/icons-material/KeyboardArrowDownOutlined'
 import { useTheme } from '@mui/material/styles'
 import type { Option } from '@app/types'
+import { SxProps } from '@mui/material'
 
 type SelectProps = {
   label: string
   defaultValue?: string
   options: Option[]
+  sxControl?: SxProps
 }
 export const CustomSelect: FC<SelectProps> = ({
   label,
   defaultValue = '',
-  options
+  options,
+  sxControl
 }) => {
   const theme = useTheme()
   const [value, setValue] = useState(defaultValue ?? '')
@@ -24,7 +27,7 @@ export const CustomSelect: FC<SelectProps> = ({
     setValue(value)
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth sx={sxControl}>
       <InputLabel id="select">{label}</InputLabel>
       <Select
         labelId="select-label"
@@ -35,7 +38,10 @@ export const CustomSelect: FC<SelectProps> = ({
         defaultValue={defaultValue}
         startAdornment={<PlaceOutlined color={'secondary'} />}
         IconComponent={KeyboardArrowDownOutlined}
-        sx={{ height: 40, 'svg path': { fill: theme.palette.secondary.main } }}
+        sx={{
+          height: 40,
+          'svg path': { fill: theme.palette.secondary.main }
+        }}
       >
         {options.map(({ value, label }) => (
           <MenuItem key={value} value={value}>

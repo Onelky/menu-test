@@ -1,5 +1,10 @@
-import React, { type FC, type PropsWithChildren, useState } from 'react'
-import { darken, styled } from '@mui/material/styles'
+import React, {
+  type FC,
+  type PropsWithChildren,
+  useEffect,
+  useState
+} from 'react'
+import { darken, styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import List from '@mui/material/List'
 import IconButton, { type IconButtonProps } from '@mui/material/IconButton'
@@ -8,6 +13,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { menuItems } from '../../contants'
 import { Drawer, DrawerHeader } from './styledComponents'
 import DrawerItem from './DrawerItem'
+import { useMediaQuery } from '@mui/material'
 
 // todo: add logo
 
@@ -35,6 +41,13 @@ const ToggleSideBarButton = styled(IconButton, {
 export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const [open, setOpen] = useState<boolean>(true)
   const [selectedItem, setSelectedItem] = useState<string>('Dashboard')
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'))
+
+  useEffect(() => {
+    if (isMobile) setOpen(false)
+    else setOpen(true)
+  }, [isMobile])
 
   const toggleOpen = () => setOpen(!open)
 
@@ -61,6 +74,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         aria-label={(open ? 'open' : 'close') + ' drawer'}
         edge="end"
         open={open}
+        sx={{ display: { xs: 'none', lg: 'flex' } }}
       >
         {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </ToggleSideBarButton>

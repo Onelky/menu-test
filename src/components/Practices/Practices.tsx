@@ -9,7 +9,7 @@ import PracticesTable from './PracticesTable'
 
 const Filter = () => {
   return (
-    <Box>
+    <Box gridRow={{ xs: 2, md: 1 }} gridColumn={{ md: 3 }}>
       <Badge badgeContent={1} color="secondary">
         <FilterListOutlined color={'secondary'} />
       </Badge>
@@ -22,19 +22,30 @@ export const Practices = () => {
     <Stack rowGap={'20px'}>
       <Box
         display={'grid'}
-        gridTemplateColumns={{ lg: '1fr 1fr minmax(0, max-content)' }}
+        gridTemplateRows={{ xs: '1fr 1fr', md: 'unset' }}
+        gridTemplateColumns={{
+          xs: '1fr minmax(0, max-content)',
+          md: '1fr 1fr minmax(0, max-content)'
+        }}
         columnGap={'15px'}
+        rowGap={'15px'}
         alignItems={'center'}
       >
         <CustomSelect
           label={'Display By'}
           defaultValue={'practice'}
+          sxControl={{ gridColumn: { xs: '1 / 3', md: 'unset' } }}
           options={[
             { label: 'Practice', value: 'practice' },
             { label: 'Other', value: 'other' }
           ]}
         />
-        <SearchBar value={search} setValue={setSearch} placeholder={'Search'} />
+        <SearchBar
+          value={search}
+          setValue={setSearch}
+          placeholder={'Search'}
+          sx={{ gridRow: { xs: 2, md: 1 } }}
+        />
         <Filter />
       </Box>
       <PracticesTable search={search} />
