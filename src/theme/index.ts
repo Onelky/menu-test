@@ -6,14 +6,18 @@ type CustomColors = {
   lightGray: string
   scrollBar: string
   lightBlue: string
+  grayGreen: string
+  grayBlue: string
 }
 
 const customColors: CustomColors = {
   whiteText: '#abc3d0',
-  darkGray: '#7b8f9d',
+  darkGray: '#677680',
   lightGray: '#cedce0',
   scrollBar: '#4b7a98',
-  lightBlue: '#3599C8'
+  lightBlue: '#3599C8',
+  grayGreen: '#A0BFBB',
+  grayBlue: '#b6cbd6'
 }
 
 const theme = createTheme({

@@ -64,7 +64,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
       >
         {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </ToggleSideBarButton>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: '90px 30px 30px 30px' }}>
         {children}
       </Box>
     </Box>

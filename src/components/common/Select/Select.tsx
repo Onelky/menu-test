@@ -35,7 +35,7 @@ export const CustomSelect: FC<SelectProps> = ({
         defaultValue={defaultValue}
         startAdornment={<PlaceOutlined color={'secondary'} />}
         IconComponent={KeyboardArrowDownOutlined}
-        sx={{ 'svg path': { fill: theme.palette.secondary.main } }}
+        sx={{ height: 40, 'svg path': { fill: theme.palette.secondary.main } }}
       >
         {options.map(({ value, label }) => (
           <MenuItem key={value} value={value}>

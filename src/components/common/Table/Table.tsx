@@ -6,7 +6,14 @@ import MuiTable from '@mui/material/Table'
 import MuiTableHead from '@mui/material/TableHead'
 import TableCell from '@mui/material/TableCell'
 import Checkbox from '@mui/material/Checkbox'
+import { Theme, useTheme } from '@mui/material/styles'
 import type { HeadCell } from './types'
+import Box from '@mui/material/Box'
+
+const checkboxCommonStyles = (theme: Theme) => ({
+  color: theme.palette.secondary.main,
+  paddingX: 0
+})
 
 const formatCellValue = (cellValue: string, isNumeric: boolean): string => {
   if (isNumeric) return '(' + cellValue + ')'
@@ -21,15 +28,8 @@ interface TableHeadProps {
 }
 
 function TableHead(props: TableHeadProps) {
-  const {
-    onSelectAllClick,
-    // order,
-    // orderBy,
-    numSelected,
-    rowCount,
-    headCells
-    // onRequestSort
-  } = props
+  const { onSelectAllClick, numSelected, rowCount, headCells } = props
+  const theme = useTheme()
 
   return (
     <MuiTableHead>
@@ -37,14 +37,15 @@ function TableHead(props: TableHeadProps) {
         <TableCell
           component={'th'}
           scope={'col'}
-          padding="checkbox"
+          padding="none"
           aria-label={'Select All checkbox'}
+          width={5}
         >
           <Checkbox
-            color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
+            sx={checkboxCommonStyles(theme)}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -54,6 +55,7 @@ function TableHead(props: TableHeadProps) {
             component={'th'}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
+            sx={{ color: theme.palette.secondary.main, fontWeight: 'bold' }}
           >
             {headCell.label}
           </TableCell>
@@ -68,6 +70,7 @@ type TableProps = {
   headers: HeadCell[]
 }
 export const Table: FC<TableProps> = ({ rows, headers }) => {
+  const theme = useTheme()
   const [selected, setSelected] = React.useState<readonly number[]>([])
 
   const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
@@ -101,10 +104,38 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
     setSelected([])
   }
 
-  if (!rows.length) return <span>No data found</span>
+  if (!rows.length)
+    return (
+      <Box
+        width={'100%'}
+        height={'50vh'}
+        display={'flex'}
+        justifyContent={'center'}
+        alignItems={'center'}
+        sx={{ color: theme.customColors.darkGray }}
+      >
+        No data found
+      </Box>
+    )
 
   return (
-    <TableContainer>
+    <TableContainer
+      sx={{
+        maxHeight: {
+          lg: 'calc(90vh - 90px - 50px)',
+          overflowY: 'auto',
+          '::-webkit-scrollbar': {
+            width: 8,
+            background: theme.customColors.grayBlue,
+            borderRadius: '8px'
+          },
+          '::-webkit-scrollbar-thumb': {
+            background: theme.customColors.scrollBar,
+            borderRadius: '8px'
+          }
+        }
+      }}
+    >
       <MuiTable
         sx={{ minWidth: 750 }}
         aria-labelledby="tableTitle"
@@ -133,12 +164,14 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
                 sx={{ cursor: 'pointer' }}
               >
                 <TableCell
-                  padding="checkbox"
+                  padding="none"
                   aria-label={'Select row checkbox'}
+                  width={5}
                 >
                   <Checkbox
                     color="primary"
                     checked={isItemSelected}
+                    sx={checkboxCommonStyles(theme)}
                     inputProps={{
                       'aria-labelledby': labelId
                     }}
@@ -149,6 +182,11 @@ export const Table: FC<TableProps> = ({ rows, headers }) => {
                     key={header.id + row.id}
                     scope="row"
                     align={header.numeric ? 'right' : 'left'}
+                    sx={{
+                      color: header.numeric
+                        ? theme.customColors.grayGreen
+                        : theme.customColors.darkGray
+                    }}
                   >
                     {formatCellValue(row[header.columnPath], !!header.numeric)}
                   </TableCell>

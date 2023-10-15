@@ -18,14 +18,15 @@ export const SearchBar: FC<SelectProps> = (props) => {
         placeholder={placeholder}
         variant="outlined"
         value={value}
+        onChange={({ target: { value } }) => setValue(value)}
         InputProps={{
+          sx: { height: 40 },
           startAdornment: (
             <InputAdornment position="start">
               <SearchOutlined color={'secondary'} />
             </InputAdornment>
           )
         }}
-        onChange={({ target: { value } }) => setValue(value)}
       />
     </FormControl>
   )
