@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Stack } from '@mui/material'
 import { SearchBar } from '../common/SearchBar'
 import { CustomSelect } from '../common/Select'
-import { Table } from '../../components/common/Table'
+import PracticesTable from '@app/components/Practices/PracticesTable'
 
 // todo: add filter icon with notification
-// todo: create common table
+// todo add search functionality
 export const Practices = () => {
-  const [value, setValue] = useState('')
+  const [search, setSearch] = useState('')
   return (
     <Stack>
       <CustomSelect
@@ -18,11 +18,8 @@ export const Practices = () => {
           { label: 'Other', value: 'other' }
         ]}
       />
-      <SearchBar value={value} setValue={setValue} placeholder={'Search'} />
-      <Table
-        rows={[{ id: 1, jobs: 4, place: 'k' }]}
-        headers={[{ label: 'Jobs', id: 1 }]}
-      />
+      <SearchBar value={search} setValue={setSearch} placeholder={'Search'} />
+      <PracticesTable search={search} />
     </Stack>
   )
 }
