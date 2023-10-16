@@ -1,15 +1,11 @@
 # Crombie test
-Web app that allows to visualize 
+Web app with a sidebar that allows to visualize and filter Practices data that comes from a json file.   
 
-## Available Scripts
+## Getting started 
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
+1. Run `npm install` to add dependencies.
+2. Run `npm start` to start the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
+## Running tests
+The app has functional and unit tests that can be run with `npm test`, that opens test runner in the interactive watch mode
