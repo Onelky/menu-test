@@ -102,7 +102,11 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
     <Collapse in={openSubmenu} timeout="auto" unmountOnExit>
       <DrawerSubItemList disablePadding>
         {subItems.map(({ label, route: subItemRoute }) => (
-          <ListItemButton key={label} sx={{ ...itemHoverStyle }}>
+          <ListItemButton
+            key={label}
+            aria-label={label}
+            sx={{ ...itemHoverStyle }}
+          >
             <NavLink to={`/${route}/${subItemRoute}`}>
               <ListItemText
                 primary={label}
@@ -156,6 +160,7 @@ const DrawerItem: FC<DrawerItemProps> = (props) => {
         <Wrapper route={hasSubItems ? '' : route}>
           <ListItemButton
             onClick={handleItemClick}
+            aria-label={label}
             sx={{
               minHeight: 48,
               justifyContent: isDrawerOpen ? 'initial' : 'center',
