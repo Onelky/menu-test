@@ -1,5 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import {
+  render,
+  screen,
+  waitFor
+} from '../../../test-utils/testingLibraryUtils'
 import DrawerItem from '../DrawerItem'
 
 const commonProps = {
@@ -16,6 +20,7 @@ test('item icon and text are rendered successfully', () => {
       {...commonProps}
     />
   )
+  // expect(screen.getByText(/Providers/i)).toBeInTheDocument()
   expect(screen.getByRole('button', { name: /Providers/i })).toBeInTheDocument()
 
   // check icon is rendered

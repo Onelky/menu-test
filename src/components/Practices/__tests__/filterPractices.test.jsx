@@ -1,5 +1,9 @@
 import userEvent from '@testing-library/user-event'
-import { render, screen, waitFor } from '@testing-library/react'
+import {
+  render,
+  screen,
+  waitFor
+} from '../../../test-utils/testingLibraryUtils'
 import { Practices } from '../Practices'
 
 test('rows are filtered based on search term (case insensitive)', async () => {
