@@ -1,4 +1,4 @@
-# Crombie test
+# App with TDD
 Web app with a sidebar that allows to visualize and filter Practices data that comes from a json file.   
 
 ## Getting started 
