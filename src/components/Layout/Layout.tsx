@@ -19,8 +19,6 @@ import DrawerItem from './DrawerItem'
 import logo from '../../assets/logo.svg'
 import logoMobile from '../../assets/logo-mobile.svg'
 
-// todo: improve drawer in mobile devices, it should be opended on top of content
-// todo add logic for taking url and select itm in menu from there
 const ToggleSideBarButton = styled(IconButton, {
   shouldForwardProp: (propName) => propName !== 'open'
 })<IconButtonProps & { open: boolean }>(({ theme, open }) => ({
